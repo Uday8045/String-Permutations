@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+unordered_map<char, int> mp;
+set<string> output;
+
+// u can also use a vector for storing these permutations
+// using a set will store them in lexographical order and this method works because we used a map
+// so, we can find permutations even though string contains duplicates.. Ex: aabb can have 6 permutations
+//Using Recursion and Backtracking
+
+void f(string ans, int n)
+{
+    
+    if(ans.size() == n)
+    {
+        output.insert(ans);
+        return;
+    }
+    
+    
+    for(auto &it: mp)
+    
+        if(it.second > 0)
+        {
+          
+            mp[it.first]--;
+            f(ans+it.first, n);
+            mp[it.first]++;
+            
+            
+        }
+        
+   
+}
+int main()
+{
+    string s= "aaabbb";
+    
+    for(auto &it: s)
+        mp[it]++;
+        
+    f("",s.size());
+    
+   cout<<output.size()<<endl;
+   
+    for(auto &it: output)
+        cout<<it<<" ";
+   
+}
